@@ -16,17 +16,45 @@ class Bot(commands.Bot):
     async def event_ready(self):
         print(f'Logged in as | {self.nick}')
         print(f'User id is | {self.user_id}')
-
-    @commands.command(name='save')
-    async def save(self, ctx):
-        # Assuming the command is "!save <text>"
-        text_to_save = ctx.message.content[len("!save "):].strip()
-        
-        # Write the text to an HTML file
+        await self.erase_file_content()
+    
+    async def event_message(self, message):
+        await self.handle_commands(message)
+        if ", requested by " in message.content.lower():
+            await self.save_requester_name(message.content)
+            
+    async def save_requester_name(self, text):
+        start_index = text.lower().index(", requested by ") + len(", requested by ")
+        end_index = text.find(" ", start_index)
+        if end_index == -1:
+            requester_name = text[start_index:].strip()  
+        else:
+            requester_name = text[start_index:end_index].strip()
+        await self.write_to_file(requester_name)
+            
+    async def write_to_file(self, text):
         with open("output.html", "w") as file:
-            file.write(f"<html><body><p>{text_to_save}</p></body></html>")
-        
-        await ctx.send(f'Text saved to HTML file: {text_to_save}')
+            file.write(f"""<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="style.css"><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><meta http-equiv="refresh" content="5"></head><body><a class="requesterName">Requester: {text}</a></body></html>""")
+            
+    async def erase_file_content(self):
+        with open("output.html", "w") as file:
+            file.write(f"""<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="style.css"><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"><meta http-equiv="refresh" content="5"></head><body><a class="requesterName"></a></body></html>""")
+            
+    @commands.command(name='requester', aliases=['r'])
+    async def requester(self, ctx):
+        if ctx.author.is_mod:
+            if len(ctx.message.content.split(" ")) < 2:
+                await ctx.send("Please provide the requester name. Example: !requester JohnDoe")
+            else:
+                requester_name = ctx.message.content.split(" ")[1]
+                await self.write_to_file(requester_name)
+                await ctx.send(f"Requester has been updated to {requester_name}")
+                
+    @commands.command(name='rclear', aliases=['rc'])
+    async def rclear(self, ctx):
+        if ctx.author.is_mod:
+            await self.erase_file_content()
+            await ctx.send("Requester has been cleared")
 
 # Main entry point
 if __name__ == "__main__":
