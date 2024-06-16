@@ -1,0 +1,10 @@
+body {
+  font-family: "Lucida Console", Courier, monospace;
+  font-size: 14px;
+}
+
+a.requesterName {
+	color: white;
+	font-size: 80px;  
+	white-space: nowrap;
+}
