@@ -20,7 +20,7 @@ class Bot(commands.Bot):
     
     async def event_message(self, message):
         await self.handle_commands(message)
-        if ", requested by " in message.content.lower():
+        if ", requested by " in message.content.lower() and message.author.name.lower() == "kokolibot":
             await self.save_requester_name(message.content)
             
     async def save_requester_name(self, text):
