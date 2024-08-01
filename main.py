@@ -55,6 +55,10 @@ class Bot(commands.Bot):
         if ctx.author.is_mod:
             await self.erase_file_content()
             await ctx.send("Requester has been cleared")
+            
+    @commands.command(name='lighter', aliases=['light', 'luzes'])
+    async def lighter(self, ctx):
+        await ctx.send("alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter ")
 
 # Main entry point
 if __name__ == "__main__":
