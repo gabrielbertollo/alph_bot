@@ -2,6 +2,7 @@ import twitchio
 from twitchio.ext import commands
 import os
 from dotenv import load_dotenv
+from mosh import mosh
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -59,6 +60,10 @@ class Bot(commands.Bot):
     @commands.command(name='lighter', aliases=['light', 'luzes'])
     async def lighter(self, ctx):
         await ctx.send("alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter ")
+
+    @commands.command(name='mosh')
+    async def mosh(self, ctx):
+        await mosh(ctx)
 
 # Main entry point
 if __name__ == "__main__":
