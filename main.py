@@ -56,10 +56,6 @@ class Bot(commands.Bot):
         if ctx.author.is_mod:
             await self.erase_file_content()
             await ctx.send("Requester has been cleared")
-            
-    @commands.command(name='lighter', aliases=['light', 'luzes'])
-    async def lighter(self, ctx):
-        await ctx.send("alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter alpher5Lighter ")
 
     @commands.command(name='mosh')
     async def mosh(self, ctx):
