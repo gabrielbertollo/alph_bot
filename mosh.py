@@ -25,6 +25,20 @@ message_pool = [
     "Hold the pit! {} is playing with their Bayblade!",
     "Hold the pit! {} and {} are playing Magic the Gathering!",
     "{} is starting a rowing pit! ROW ROW ROW!",
+    "{} found a wallet in the mosh! What a lucky bastard!",
+    "{} found a phone in the mosh! WHO LOST THEIR PHONE?!",
+    "{} is starting a wall of death! {} is on the other side!",
+    "{} found a shoe in the mosh! WHO LOST THEIR SHOE?!",
+    "{} is doing the running man dance! Who will join them?",
+    "{} accidentally headbutts {} during a jump!",
+    "{} dives off the stage and lands on {}!",
+    "{} and {} start a push-up contest in the middle of the pit!",
+    "{} is riding a wave of people! {} tries to pull them down!",
+    "{} is spinning around with arms wide open! {} ducks just in time!",
+    "{} and {} are locked in a friendly wrestling match!",
+    "{} and {} are having a dance-off in the mosh!",
+    "{} and {} are having a thumb war in the mosh!",
+    "{} and {} are having a staring contest in the mosh!",
 ]
 mosh_started = False
 
@@ -38,7 +52,7 @@ async def mosh(ctx):
         if not mosh_started:
             mosh_started = True
             mosh_message_timer = asyncio.create_task(mosh_countdown(ctx))
-            await ctx.send(f"{user} is starting the mosh! Who's gonna join them? Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh")
+            await ctx.send(f"{user} is starting a mosh pit! Who's gonna join them? Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh")
         else:
             await ctx.send(f"{user} joined the mosh with {len(mosh_list)} moshers! Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh")
 
@@ -53,7 +67,7 @@ async def mosh_end(ctx):
     await asyncio.sleep(60)
 
     if len(mosh_list) > 1:
-        await ctx.send(f"The mosh ended with {len(mosh_list)} participants!")
+        await ctx.send(f"The mosh pit ended with {len(mosh_list)} participants! That was a wild mosh!")
     else:
         user = mosh_list[0]
         await ctx.send(f"{user} was the only one in the mosh! What a loner!")
