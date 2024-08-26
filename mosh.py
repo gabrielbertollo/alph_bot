@@ -24,6 +24,7 @@ message_pool = [
     "{} knocks {} out with a punch!",
     "Hold the pit! {} is playing with their Bayblade!",
     "Hold the pit! {} and {} are playing Magic the Gathering!",
+    "{} is starting a rowing pit! ROW ROW ROW!",
 ]
 mosh_started = False
 
