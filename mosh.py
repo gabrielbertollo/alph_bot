@@ -24,6 +24,7 @@ message_pool = [
     "{} knocks {} out with a punch!",
     "Hold the pit! {} is playing with their Bayblade!",
     "Hold the pit! {} and {} are playing Magic the Gathering!",
+    "{} is starting a rowing pit! ROW ROW ROW!",
     "{} found a wallet in the mosh! What a lucky bastard!",
     "{} found a phone in the mosh! WHO LOST THEIR PHONE?!",
     "{} is starting a wall of death! {} is on the other side!",
@@ -38,6 +39,12 @@ message_pool = [
     "{} and {} are having a dance-off in the mosh!",
     "{} and {} are having a thumb war in the mosh!",
     "{} and {} are having a staring contest in the mosh!",
+    "{} pours water over {}'s head in the middle of the pit!",
+    "{} brought a giant inflatable unicorn into the pit!",
+    "{} and {} are playing leapfrog in the mosh!",
+    "{} attempts a stage dive but no one catches them! CALL AN AMBULANCE!",
+    "{} throws their shirt into the crowd! {} catches it!",
+    "{} throws their beer into the air! MAKE IT RAIN!"
 ]
 mosh_started = False
 
