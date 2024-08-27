@@ -63,7 +63,7 @@ async def mosh(ctx):
 async def mosh_end(ctx):
     global mosh_list, mosh_end_timer, mosh_started, mosh_message_timer
 
-    await asyncio.sleep(60)
+    await asyncio.sleep(90)
 
     if len(mosh_list) > 1:
         await ctx.send(f"The mosh pit ended with {len(mosh_list)} participants! That was a wild mosh!")
