@@ -39,6 +39,12 @@ message_pool = [
     "{} and {} are having a dance-off in the mosh!",
     "{} and {} are having a thumb war in the mosh!",
     "{} and {} are having a staring contest in the mosh!",
+    "{} pours water over {}'s head in the middle of the pit!",
+    "{} brought a giant inflatable unicorn into the pit!",
+    "{} and {} are playing leapfrog in the mosh!",
+    "{} attempts a stage dive but no one catches them! CALL AN AMBULANCE!",
+    "{} throws their shirt into the crowd! {} catches it!",
+    "{} throws their beer into the air! MAKE IT RAIN!"
 ]
 mosh_started = False
 
