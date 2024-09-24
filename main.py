@@ -23,6 +23,9 @@ class Bot(commands.Bot):
         await self.handle_commands(message)
         if ", requested by " in message.content.lower() and message.author.name.lower() == "kokolibot":
             await self.save_requester_name(message.content)
+        # React to messages that contain "catSUS"
+        if "catSUS" in message.content:
+            await message.channel.send('catSUS')
             
     async def save_requester_name(self, text):
         start_index = text.lower().index(", requested by ") + len(", requested by ")
