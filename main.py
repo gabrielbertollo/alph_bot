@@ -8,6 +8,8 @@ from mosh import mosh
 load_dotenv()
 
 class Bot(commands.Bot):
+    first_user = None
+    
     def __init__(self):
         # Use environment variables for the token and channel
         token = os.getenv('TWITCH_TOKEN')
@@ -63,6 +65,14 @@ class Bot(commands.Bot):
     @commands.command(name='mosh')
     async def mosh(self, ctx):
         await mosh(ctx)
+        
+    @commands.command(name='first')
+    async def first(self, ctx):
+        if self.first_user is None:
+            self.first_user = ctx.author.name
+            await ctx.send(f"!givevip @{self.first_user}")
+        else:
+            await ctx.send(f"First has already been taken by {self.first_user}!")
 
 # Main entry point
 if __name__ == "__main__":
