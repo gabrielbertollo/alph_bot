@@ -73,6 +73,15 @@ class Bot(commands.Bot):
             await ctx.send(f"!givevip @{self.first_user}")
         else:
             await ctx.send(f"First has already been taken by {self.first_user}!")
+    
+    @commands.command(name='requests')
+    async def requests(self, ctx):
+        if 'on' in ctx.message.content.lower() and ctx.author.is_mod:
+            with open("requests.txt", "w") as file:
+                file.write("REQUESTS ARE ON")
+        elif 'off' in ctx.message.content.lower():
+            with open("requests.txt", "w") as file:
+                file.write("REQUESTS ARE OFF")
 
 # Main entry point
 if __name__ == "__main__":
