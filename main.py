@@ -66,7 +66,7 @@ class Bot(commands.Bot):
     async def mosh(self, ctx):
         await mosh(ctx)
         
-    @commands.command(name='first')
+    @commands.command(name='first', aliases=['First'])
     async def first(self, ctx):
         if self.first_user is None:
             self.first_user = ctx.author.name
