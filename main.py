@@ -2,7 +2,7 @@ import twitchio
 from twitchio.ext import commands
 import os
 from dotenv import load_dotenv
-from mosh import mosh
+from mosh import start_mosh
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -64,7 +64,15 @@ class Bot(commands.Bot):
 
     @commands.command(name='mosh')
     async def mosh(self, ctx):
-        await mosh(ctx)
+        await start_mosh(ctx, "default")
+        
+    @commands.command(name='sadmosh')
+    async def sadmosh(self, ctx):
+        await start_mosh(ctx, "sad")
+        
+    @commands.command(name='hornymosh')
+    async def hornymosh(self, ctx):
+        await start_mosh(ctx, "horny")
         
     @commands.command(name='first', aliases=['First'])
     async def first(self, ctx):
