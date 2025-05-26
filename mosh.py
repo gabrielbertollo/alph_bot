@@ -100,16 +100,17 @@ async def start_mosh(ctx, type_name="default"):
     if user not in mosh_list:
         mosh_list.append(user)
         
+        mosh_emotes = {
+            "default": "Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh",
+            "sad": "PepePls PepePls PepePls PepePls PepePls PepePls PepePls PepePls PepePls PepePls",
+            "horny": "Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm"
+        }
+        
         if not mosh_started:
             mosh_started = True
             mosh_type = type_name
             mosh_message_timer = asyncio.create_task(mosh_countdown(ctx))
             
-            mosh_emotes = {
-                "default": "Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh",
-                "sad": "PepePls PepePls PepePls PepePls PepePls PepePls PepePls PepePls PepePls PepePls",
-                "horny": "Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm"
-            }
             start_text = {
                 "default": f"{user} is starting a mosh pit! Who's gonna join them? {mosh_emotes[type_name]}",
                 "sad": f"{user} is sad and starting a mosh pit. Who's gonna join them? (bring tissues) {mosh_emotes[type_name]}",
