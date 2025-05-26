@@ -51,8 +51,9 @@ message_pools = {
         "{} throws their beer into the air! MAKE IT RAIN!",
         "{} throws a chair at {}! WHAT THE HELL?!",
         "{} throws a burquinha at {}! WHAT EVEN IS THAT?!",
-        "{} is trying to sing along... But they don't know the lyrics!"
-    ],  
+        "{} is trying to sing along... But they don't know the lyrics!",
+        "{} is disrespecting their surroundings!",
+    ],
     "sad": [
         "Someone stop {}, they're trying to call their ex" 
         "Look at {}, making it rain on the dancefloor, too bad it's tears and not money"
