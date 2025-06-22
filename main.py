@@ -9,6 +9,7 @@ load_dotenv()
 
 class Bot(commands.Bot):
     first_user = None
+    second_user = None
     
     def __init__(self):
         # Use environment variables for the token and channel
@@ -81,6 +82,20 @@ class Bot(commands.Bot):
             await ctx.send(f"!givevip @{self.first_user}")
         else:
             await ctx.send(f"First has already been taken by {self.first_user}!")
+
+    @commands.command(name='second', aliases=['Second'])
+    async def second(self, ctx):
+        if self.first_user is not None and self.second_user is None:
+            if ctx.author.name == self.first_user:
+                await ctx.send("You cannot take Second after taking First!")
+                return
+            self.second_user = ctx.author.name
+            await ctx.send(f"!givevip @{self.second_user} 0.1")
+        else:
+            if self.first_user is None:
+                await ctx.send(f"Calm down {ctx.author.name}! First must be taken before Second!")
+            else:
+                await ctx.send(f"Second has already been taken by {self.second_user}!")
     
     @commands.command(name='requests')
     async def requests(self, ctx):
