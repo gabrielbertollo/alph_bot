@@ -1,3 +1,4 @@
+import asyncio
 import twitchio
 from twitchio.ext import commands
 import os
@@ -79,6 +80,8 @@ class Bot(commands.Bot):
     async def first(self, ctx):
         if self.first_user is None:
             self.first_user = ctx.author.name
+            await ctx.send(f"{self.first_user} you are FIRST! You will receive a VIP token soon!")
+            await asyncio.sleep(120) 
             await ctx.send(f"!givevip @{self.first_user}")
         else:
             await ctx.send(f"First has already been taken by {self.first_user}!")
@@ -90,6 +93,8 @@ class Bot(commands.Bot):
                 await ctx.send("You cannot take Second after taking First!")
                 return
             self.second_user = ctx.author.name
+            await ctx.send(f"{self.second_user} you are SECOND! You will receive a VIP token soon!")
+            await asyncio.sleep(120)
             await ctx.send(f"!givevip @{self.second_user} 0.1")
         else:
             if self.first_user is None:
