@@ -111,6 +111,22 @@ class Bot(commands.Bot):
             with open("requests.txt", "w") as file:
                 file.write("REQUESTS ARE OFF")
 
+    @commands.command(name='on')
+    async def on(self, ctx):
+        if ctx.author.is_mod:
+            with open("requests.txt", "w") as file:
+                file.write("REQUESTS ARE ON")
+            await ctx.send("!requests on")
+            await ctx.send("!vips on")
+
+    @commands.command(name='off')
+    async def off(self, ctx):
+        if ctx.author.is_mod:
+            with open("requests.txt", "w") as file:
+                file.write("REQUESTS ARE OFF")
+            await ctx.send("!requests off")
+            await ctx.send("!vips off")
+
 # Main entry point
 if __name__ == "__main__":
     bot = Bot()
