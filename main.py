@@ -4,6 +4,7 @@ from twitchio.ext import commands
 import os
 from dotenv import load_dotenv
 from mosh import start_mosh
+from PIL import Image, ImageDraw, ImageFont
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -102,28 +103,80 @@ class Bot(commands.Bot):
             else:
                 await ctx.send(f"Second has already been taken by {self.second_user}!")
     
+    def generate_requests_image(self, is_on):
+        width, height = 300, 180
+        img = Image.new('RGBA', (width, height), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+
+        # Title "REQUESTS" in Arial Black
+        title_font = ImageFont.truetype('ariblk.ttf', 36)
+        title_bbox = draw.textbbox((0, 0), "REQUESTS", font=title_font)
+        title_x = (width - (title_bbox[2] - title_bbox[0])) // 2
+        draw.text((title_x, 10), "REQUESTS", fill="white", font=title_font)
+
+        # Switch pill shape
+        pill_w, pill_h = 160, 60
+        pill_x = (width - pill_w) // 2
+        pill_y = 80
+        radius = pill_h // 2
+
+        if is_on:
+            pill_color = (34, 197, 94)  # green
+            label = "ON"
+            # Circle on the right side
+            circle_x = pill_x + pill_w - pill_h
+        else:
+            pill_color = (220, 38, 38)  # red
+            label = "OFF"
+            # Circle on the left side
+            circle_x = pill_x
+
+        # Draw pill background
+        draw.rounded_rectangle(
+            [pill_x, pill_y, pill_x + pill_w, pill_y + pill_h],
+            radius=radius, fill=pill_color
+        )
+
+        # Draw white circle (knob)
+        margin = 4
+        draw.ellipse(
+            [circle_x + margin, pill_y + margin,
+             circle_x + pill_h - margin, pill_y + pill_h - margin],
+            fill="white"
+        )
+
+        # Draw ON/OFF label on the pill
+        label_font = ImageFont.truetype('ariblk.ttf', 24)
+        label_bbox = draw.textbbox((0, 0), label, font=label_font)
+        label_w = label_bbox[2] - label_bbox[0]
+        label_h = label_bbox[3] - label_bbox[1]
+        if is_on:
+            label_x = pill_x + (pill_w - pill_h) // 2 - label_w // 2 + 10
+        else:
+            label_x = pill_x + pill_h + (pill_w - pill_h) // 2 - label_w // 2 - 10
+        label_y = pill_y + (pill_h - label_h) // 2 - label_bbox[1]
+        draw.text((label_x, label_y), label, fill="white", font=label_font)
+
+        img.save("requests.png")
+
     @commands.command(name='requests')
     async def requests(self, ctx):
         if 'on' in ctx.message.content.lower() and ctx.author.is_mod:
-            with open("requests.txt", "w") as file:
-                file.write("REQUESTS ARE ON")
+            self.generate_requests_image(True)
         elif 'off' in ctx.message.content.lower():
-            with open("requests.txt", "w") as file:
-                file.write("REQUESTS ARE OFF")
+            self.generate_requests_image(False)
 
     @commands.command(name='on')
     async def on(self, ctx):
         if ctx.author.is_mod:
-            with open("requests.txt", "w") as file:
-                file.write("REQUESTS ARE ON")
+            self.generate_requests_image(True)
             await ctx.send("!requests on")
             await ctx.send("!vips on")
 
     @commands.command(name='off')
     async def off(self, ctx):
         if ctx.author.is_mod:
-            with open("requests.txt", "w") as file:
-                file.write("REQUESTS ARE OFF")
+            self.generate_requests_image(False)
             await ctx.send("!requests off")
             await ctx.send("!vips off")
 
