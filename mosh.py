@@ -146,26 +146,36 @@ async def mosh_end(ctx):
 
     await asyncio.sleep(90)
 
-    winner = random.choice(mosh_list)
+    has_winner = random.random() < 0.25
 
     if len(mosh_list) > 1:
-        end_text = {
-            "default": "The mosh pit ended with {} participants! That was a wild one! {} survived the mosh and won a VIP token! What a beast!",
-            "sad": "The sad times are over! The mosh pit has ended with {} participants! {} cried the hardest and won a VIP token! Here's a tissue and a prize!",
-            "horny": "The horny mosh pit has ended with {} participants! {} was the horniest mosher and won a VIP token! Behave yourself!",
-            "cowboy": "The rodeo is over! The cowboy mosh pit ended with {} participants! {} is the last cowboy standing and won a VIP token! Yeehaw!"
-        }
-        await ctx.send(end_text[mosh_type].format(len(mosh_list), winner))
+        if has_winner:
+            winner = random.choice(mosh_list)
+            end_text = {
+                "default": "The mosh pit ended with {} participants! That was a wild one! {} survived the mosh and won a VIP token! What a beast!",
+                "sad": "The sad times are over! The mosh pit has ended with {} participants! {} cried the hardest and won a VIP token! Here's a tissue and a prize!",
+                "horny": "The horny mosh pit has ended with {} participants! {} was the horniest mosher and won a VIP token! Behave yourself!",
+                "cowboy": "The rodeo is over! The cowboy mosh pit ended with {} participants! {} is the last cowboy standing and won a VIP token! Yeehaw!"
+            }
+            await ctx.send(end_text[mosh_type].format(len(mosh_list), winner))
+            await ctx.send(f"!givevip @{winner} 0.1")
+        else:
+            end_text = {
+                "default": "The mosh pit ended with {} participants! That was a wild one!",
+                "sad": "The sad times are over! The mosh pit has ended with {} participants! Let's hope it was a healing experience!",
+                "horny": "The horny mosh pit has ended with {} participants! That was steamy!",
+                "cowboy": "The rodeo is over! The cowboy mosh pit ended with {} participants! What a wild ride!"
+            }
+            await ctx.send(end_text[mosh_type].format(len(mosh_list)))
     else:
+        user = mosh_list[0]
         end_text = {
-            "default": "{} was the only one in the mosh! What a loner! But hey, you still won a VIP token!",
-            "sad": "{} was the only one sad enough to start a mosh pit. Here's a tissue and a VIP token!",
-            "horny": "{} was the only one horny here. Go to horny jail! But take this VIP token with you!",
-            "cowboy": "{} was the only cowboy in town. Lonely rider! But you still won a VIP token, partner!"
+            "default": "{} was the only one in the mosh! What a loner!",
+            "sad": "{} was the only one sad enough to start a mosh pit. Let's hope they find some comfort soon!",
+            "horny": "{} was the only one horny here. Go to horny jail!",
+            "cowboy": "{} was the only cowboy in town. Lonely rider!"
         }
-        await ctx.send(end_text[mosh_type].format(winner))
-
-    await ctx.send(f"!givevip @{winner} 0.1")
+        await ctx.send(end_text[mosh_type].format(user))
 
     mosh_list = []
     mosh_started = False
