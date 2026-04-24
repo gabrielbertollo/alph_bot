@@ -90,6 +90,18 @@ message_pools = {
         "{} rips their shirt dramatically!",
         "{} is moshing with handcuffs on!",
         "{} drops their pants. {} drops their standards.",
+    ],
+    "cowboy": [
+        "{} is starting a line dance. Who's gonna join them?",
+        "{}'s belt buckle deflects a stray bullet!",
+        "{}'s horse joined the mosh too.",
+        "There's a snake in {}'s boot!",
+        "{} is using their lasso to steal {}'s whiskey bottle.",
+        "Someone stole {}'s hat. Call the Sheriff!",
+        "{} started a bar fight!",
+        "{} is auctioning off their favorite cow. Who'll bid higher?",
+        "A tumbleweed hits {}'s face.",
+        "{} and {} are heading for a standoff! Who will be faster?",
     ]
 }
 
@@ -104,7 +116,8 @@ async def start_mosh(ctx, type_name="default"):
         mosh_emotes = {
             "default": "Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh Mosh",
             "sad": "PepePls PepePls PepePls PepePls PepePls PepePls PepePls PepePls PepePls PepePls",
-            "horny": "Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm"
+            "horny": "Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm Kreygasm",
+            "cowboy": "aurHowdy aurHowdy aurHowdy aurHowdy aurHowdy aurHowdy aurHowdy aurHowdy aurHowdy aurHowdy"
         }
         
         if not mosh_started:
@@ -115,7 +128,8 @@ async def start_mosh(ctx, type_name="default"):
             start_text = {
                 "default": f"{user} is starting a mosh pit! Who's gonna join them? {mosh_emotes[type_name]}",
                 "sad": f"{user} is sad and starting a mosh pit. Who's gonna join them? (bring tissues) {mosh_emotes[type_name]}",
-                "horny": f"Looks like {user} is horny and is starting a mosh pit! Who's gonna join them? {mosh_emotes[type_name]}"
+                "horny": f"Looks like {user} is horny and is starting a mosh pit! Who's gonna join them? {mosh_emotes[type_name]}",
+                "cowboy": f"Yeehaw! {user} is starting a cowboy mosh pit! Saddle up partners! {mosh_emotes[type_name]}"
             }
             await ctx.send(start_text[mosh_type])
             
@@ -132,21 +146,26 @@ async def mosh_end(ctx):
 
     await asyncio.sleep(90)
 
+    winner = random.choice(mosh_list)
+
     if len(mosh_list) > 1:
         end_text = {
-            "default": "The mosh pit ended with {} participants! That was a wild one!",
-            "sad": "The sad times are over! The mosh pit has ended with {} participants! Let's hope it was a healing experience!",
-            "horny": "The horny mosh pit has ended with {} participants! That was steamy!"
+            "default": "The mosh pit ended with {} participants! That was a wild one! {} survived the mosh and won a VIP token! What a beast!",
+            "sad": "The sad times are over! The mosh pit has ended with {} participants! {} cried the hardest and won a VIP token! Here's a tissue and a prize!",
+            "horny": "The horny mosh pit has ended with {} participants! {} was the horniest mosher and won a VIP token! Behave yourself!",
+            "cowboy": "The rodeo is over! The cowboy mosh pit ended with {} participants! {} is the last cowboy standing and won a VIP token! Yeehaw!"
         }
-        await ctx.send(end_text[mosh_type].format(len(mosh_list)))
+        await ctx.send(end_text[mosh_type].format(len(mosh_list), winner))
     else:
-        user = mosh_list[0]
         end_text = {
-            "default": "{} was the only one in the mosh! What a loner!",
-            "sad": "{} was the only one sad enough to start a mosh pit. Let's hope they find some comfort soon!",
-            "horny": "{} was the only one horny here. Go to horny jail!"
+            "default": "{} was the only one in the mosh! What a loner! But hey, you still won a VIP token!",
+            "sad": "{} was the only one sad enough to start a mosh pit. Here's a tissue and a VIP token!",
+            "horny": "{} was the only one horny here. Go to horny jail! But take this VIP token with you!",
+            "cowboy": "{} was the only cowboy in town. Lonely rider! But you still won a VIP token, partner!"
         }
-        await ctx.send(end_text[mosh_type].format(user))
+        await ctx.send(end_text[mosh_type].format(winner))
+
+    await ctx.send(f"!givevip @{winner} 0.1")
 
     mosh_list = []
     mosh_started = False

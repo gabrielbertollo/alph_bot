@@ -76,6 +76,10 @@ class Bot(commands.Bot):
     @commands.command(name='hornymosh')
     async def hornymosh(self, ctx):
         await start_mosh(ctx, "horny")
+
+    @commands.command(name='cowboymosh')
+    async def cowboymosh(self, ctx):
+        await start_mosh(ctx, "cowboy")
         
     @commands.command(name='first', aliases=['First'])
     async def first(self, ctx):
