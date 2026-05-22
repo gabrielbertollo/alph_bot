@@ -170,6 +170,28 @@ class Bot(commands.Bot):
         elif 'off' in ctx.message.content.lower():
             self.generate_requests_image(False)
 
+    @commands.command(name='birthday')
+    async def birthday(self, ctx):
+        if ctx.author.is_mod:
+            parts = ctx.message.content.split(" ")
+            if len(parts) < 2:
+                await ctx.send("Please provide a user. Example: !birthday @user")
+                return
+            target = parts[1].lstrip("@")
+            await ctx.send(f"Happy Birthday @{target}, as a gift you get a VIP token!")
+            await ctx.send(f"!givevip @{target}")
+
+    @commands.command(name='aniversario')
+    async def aniversario(self, ctx):
+        if ctx.author.is_mod:
+            parts = ctx.message.content.split(" ")
+            if len(parts) < 2:
+                await ctx.send("Por favor forneça um usuário. Exemplo: !aniversario @user")
+                return
+            target = parts[1].lstrip("@")
+            await ctx.send(f"Feliz Aniversário @{target}, como presente você ganha um token VIP!")
+            await ctx.send(f"!givevip @{target}")
+
     @commands.command(name='on')
     async def on(self, ctx):
         if ctx.author.is_mod:
