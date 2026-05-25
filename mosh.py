@@ -146,7 +146,7 @@ async def mosh_end(ctx):
 
     await asyncio.sleep(90)
 
-    has_winner = random.random() < 0.25
+    has_winner = True
 
     if len(mosh_list) > 1:
         if has_winner:
